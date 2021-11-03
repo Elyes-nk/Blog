@@ -12,7 +12,7 @@ const catRoute = require("./routes/categories");
 const multer = require("multer");
 
 dotenv.config();
-//utilisé json
+//use json
 app.use(express.json());
 
 //connect to mangoDB
