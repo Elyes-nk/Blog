@@ -7,18 +7,19 @@ import axios from "axios";
 import React, {useEffect, useState} from "react";
 
 export default function Homepage() {
-  const location = useLocation();
-  console.log(location);
-
-
+  const { search } = useLocation();
   const [posts, setPosts] = useState({});
-  useEffect(()=> {
+
+/*  */
+useEffect(()=> {
     const fetchPosts = async ()=> {
-      const res = axios.get("/Posts");
+      const res = axios.get("/Posts"+search);
       setPosts(res.data);
     }
     fetchPosts()
-  },[])
+  },[search])
+
+
   return (
     <>
       <Header />
