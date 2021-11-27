@@ -10,10 +10,12 @@ const postsRoute = require("./routes/posts");
 const catRoute = require("./routes/categories");
 //multer to upload img
 const multer = require("multer");
+const path= require("path");
 
 dotenv.config();
 //use json
 app.use(express.json());
+app.use("/img", express.static(path.join(__dirname,"/img")));
 
 //connect to mangoDB
 mongoose.connect(process.env.MONGO_URL, {

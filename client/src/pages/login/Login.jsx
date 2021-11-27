@@ -2,6 +2,7 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import React, { useRef } from "react";
 import { Context, useContext } from "../../../context/Context";
+import axios from "axios";
 
 
 
@@ -9,12 +10,14 @@ export default function Login() {
 
   const userRef = useRef();
   const passwordRef = useRef();
-  const {dispatch, isFetching} = useContext(Context);
-  const handleSubmit = (e) => {
+
+  const {user, dispatch, isFetching} = useContext(Context);
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch({type:"LOGIN_START"});
     try {
-      const res = await axios.post("/auth/login", {
+        const res = await axios.post("/auth/login", {
         username: userRef.current.value,
         password: passwordRef.current.value,
       })
