@@ -6,6 +6,8 @@ import { Context } from "../context/Context"
 export default function Topbar() {
   const { user, dispatch } = useContext(Context);
 
+  const PublicFolder = "http://localhost:5000/img/";
+
   const handleLogout = () => {
     dispatch({type : "LOGOUT"});
   }
@@ -38,7 +40,7 @@ export default function Topbar() {
           <Link className="link" to="/settings">
             <img
               className="topImg"
-              src={user.profilePic}
+              src={PublicFolder+user.profilePic}
               alt=""
             />
           </Link>
