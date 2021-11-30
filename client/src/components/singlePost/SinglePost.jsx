@@ -27,6 +27,8 @@ export default function SinglePost() {
     }
     getPost();
   },[path, setPost]);
+
+  
   const handleDelete = async() => {
     try {
       await axios.delete("/posts/" + path, {data : { username:user.username }});
