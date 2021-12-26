@@ -1,11 +1,12 @@
 import "./settings.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useState, useContext } from "react";
-import Context from "../../../context/Context";
+import { Context } from "../../context/Context";
 import axios from "axios";
 
 export default function Settings() {
   const {user, dispatch} = useContext(Context);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

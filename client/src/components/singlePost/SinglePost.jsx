@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./singlePost.css";
 import React, {useEffect, useState, useContext} from "react";
-import Context from "../../../context/Context";
+import { Context } from "../../context/Context";
 import { useLocation } from "react-router";
 import axios from "axios";
 
@@ -9,35 +9,37 @@ export default function SinglePost() {
   const PublicFolder = "http://localhost:5000/img/";
 
   const {user} = useContext(Context);
-  const {post, setPost} = useState({});
-
+  const [post, setPost] = useState({});
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+
   const [updateMode, setUpdateMode] = useState(false);
 
   const location = useLocation();
-  const path = location.pathname.split('/')[2];
-
+  const id = location.pathname.split('/')[2];
+  
   useEffect(()=> {
     const getPost = async () => {
-      const res = await axios.get("/posts/" + path);
+      const res = await axios.get("/Posts/"+id);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      console.log("0")
     }
     getPost();
-  },[path, setPost]);
+  },[id, setPost]);
 
-  
+
   const handleDelete = async() => {
     try {
-      await axios.delete("/posts/" + path, {data : { username:user.username }});
+      console.log("oups")
+      await axios.delete("/Posts/" + id, {data : { username:user.username }});
       window.location.replace("/");
     } catch (error) { }
   }
   const handleEdit = async() => {
     try {
-      await axios.put("/posts/" + path, { username:user.username, title:title, desc:desc});
+      await axios.put("/Posts/" + id, { username:user.username, title:title, desc:desc});
       setUpdateMode(false);
     } catch (error) { }
     //128
@@ -67,11 +69,11 @@ export default function SinglePost() {
             <div className="singlePostEdit">
               <i 
                 className="singlePostIcon far fa-edit"
-                onClick={handleDelete}
+                onClick={()=>setUpdateMode(true)}
               ></i>
               <i 
                 className="singlePostIcon far fa-trash-alt"
-                onClick={()=>setUpdateMode(true)}
+                onClick={()=>handleDelete()}
               ></i>
             </div>
           )}

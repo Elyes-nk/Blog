@@ -8,16 +8,16 @@ import React, {useEffect, useState} from "react";
 
 export default function Homepage() {
   const { search } = useLocation();
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState([]);
 
 /*  */
 useEffect(()=> {
     const fetchPosts = async ()=> {
-      const res = axios.get("/Posts"+search);
+      const res = await axios.get("/Posts"+search);
       setPosts(res.data);
     }
     fetchPosts()
-  },[search])
+  },[search, setPosts])
 
 
   return (
